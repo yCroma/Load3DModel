@@ -81,6 +81,10 @@
       scene.add(box)
 	 		*/
 
+			// 環境光追加
+			const ambientLight = new THREE.AmbientLight(0xffffff);
+      scene.add(ambientLight);
+
 			// 3Dモデルを読み込む
 			const loader = new THREE.OBJLoader();
 			loader.load(
