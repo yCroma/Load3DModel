@@ -100,6 +100,7 @@
 									console.log( 'An error happend')
 						}
 			)
+			console.log("loader", JSON.stringfy(loader))
 
       tick();
 
@@ -107,11 +108,8 @@
       function tick() {
         //box.rotation.y += 0.01;
         renderer.render(scene, camera); // レンダリング
-
         requestAnimationFrame(tick);
       }
-
-			console.log(`loaderの中身： ${JSON.stringfy(loader)}`)
 
 		}
 	</script>
