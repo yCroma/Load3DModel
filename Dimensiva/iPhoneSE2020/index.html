@@ -107,12 +107,64 @@
 
       // 毎フレーム時に実行されるループイベントです
       function tick() {
-        //box.rotation.y += 0.01;
-				loader.rotation.y += 0.01;
         renderer.render(scene, camera); // レンダリング
         requestAnimationFrame(tick);
       }
+		}
+	</script>
+	<h1>FBX</h1>
+	<canvas id="fbx"></canvas>
+	<script src="/Load3DModel/loader/FBXLoader.js"></script>
+	<script>
+    window.addEventListener('load', loadobj);
+		function loadobj() {
+      // サイズを指定
+      const width = 960;
+      const height = 540;
 
+      // レンダラーを作成
+      const renderer = new THREE.WebGLRenderer({
+        canvas: document.querySelector('#fbx')
+      });
+      renderer.setPixelRatio(window.devicePixelRatio);
+      renderer.setSize(width, height);
+
+      // シーンを作成
+      const scene = new THREE.Scene();
+
+      // カメラを作成
+      const camera = new THREE.PerspectiveCamera(45, width / height);
+      camera.position.set(0, 0, +50);
+
+			// 環境光追加
+			const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+      scene.add(ambientLight);
+
+			// 3Dモデルを読み込む
+			const loader = new THREE.OBJLoader();
+			loader.load(
+						// resource URL
+						'./iPhoneSE2020.FBX',
+						function ( object ) {
+									scene.add( object )
+						},
+						function ( xhr ) {
+									console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+						},
+						function ( error ) {
+									console.log( 'An error happend')
+						}
+			)
+			console.log("console.dirを試す")
+			console.dir(loader)
+
+      tick();
+
+      // 毎フレーム時に実行されるループイベントです
+      function tick() {
+        renderer.render(scene, camera); // レンダリング
+        requestAnimationFrame(tick);
+      }
 		}
 	</script>
 </body>
